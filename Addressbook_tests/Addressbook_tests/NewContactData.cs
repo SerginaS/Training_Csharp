@@ -8,38 +8,61 @@ namespace WebAddressbookTests
 {
     class NewContactData
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname = "";
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private string bday = "";
-        private string bmonth = "";
-        private string byear = "";
-        private string aday = "";
-        private string amonth = "";
-        private string ayear = "";
-        private string address2 = "";
-        private string phone2 = "";
-        private string notes = "";
+        //private string firstname, middlename = "", lastname = "", nickname = "", title = "",
+        //company = "", address = "", home = "", mobile = "", work = "", fax = "", email = "",
+        //email2 = "", email3 = "", homepage = "", bmonth = "", amonth = "", address2 = "",
+        //phone2 = "", notes = ""
+        public string firstname { get; set; }
+        public string middlename { get; set; } = "";
+        public string lastname { get; set; } = "";
+        public string nickname { get; set; } = "";
+        public string title { get; set; } = "";
+        public string company { get; set; } = "";
+        public string address { get; set; } = "";
+        public string home { get; set; } = "";
+        public string mobile { get; set; } = "";
+        public string work { get; set; } = "";
+        public string fax { get; set; } = "";
+        public string email { get; set; } = "";
+        public string email2 { get; set; } = "";
+        public string email3 { get; set; } = "";
+        public string homepage { get; set; } = "";
+        public string bmonth { get; set; } = "";
+        public string amonth { get; set; } = "";
+        public string address2 { get; set; } = "";
+        public string phone2 { get; set; } = "";
+        public string notes { get; set; } = "";
+        public string bday { get; set; } = "";
+        public string byear { get; set; } = "";
+        public string aday { get; set; } = "";
+        public string ayear { get; set; } = "";
 
         public NewContactData(string firstname, string middlename, string lastname, 
             string nickname, string title, string company, string address, string home,
             string mobile, string work, string fax, string email1, string email2, string email3,
-            string homepage, int bday, string bmonth, int byear, int aday, string amonth, int ayear,
+            string homepage, string bday, string bmonth, string byear, string aday, string amonth, string ayear,
             string address2, string phone2, string notes)
+            
+        {
+            this.firstname = firstname;
+            this.middlename = middlename;
+            this.lastname = lastname;
+            this.nickname = nickname;
+            this.title = title;
+            this.company = company;
+            this.address = address;
+            this.home = home;
+            this.homepage = homepage;
+            this.bday = bday;
+            this.bmonth = bmonth;
+            this.byear = byear;
+            this.company = company;
+            this.address = address;
+        }
+        public NewContactData(string firstname)
         {
             this.firstname = firstname;
         }
+
     }
 }
