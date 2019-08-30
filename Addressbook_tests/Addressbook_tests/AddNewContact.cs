@@ -49,9 +49,9 @@ namespace WebAddressbookTests
             contact.middlename = "test1";
             contact.lastname = "test2";
             contact.home = "test3";
-            contact.bday = "5";
-            contact.bmonth = "January";
             contact.byear = "1524";
+            contact.ayear = "1999";
+            NewContactCreation(contact);
             SubmitNewContactCreation();
             ReturnToHomePage();
         }
@@ -124,10 +124,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("byear")).SendKeys(contact.byear);
             driver.FindElement(By.Name("aday")).Click();
             new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.aday);
-            driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[3]")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[7]")).Click();
             driver.FindElement(By.Name("amonth")).Click();
             new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.amonth);
-            driver.FindElement(By.XPath("(//div[@id='content']/form/select[4]/option[3]")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[3]")).Click();
             driver.FindElement(By.Name("ayear")).Click();
             driver.FindElement(By.Name("ayear")).Clear();
             driver.FindElement(By.Name("ayear")).SendKeys(contact.ayear);

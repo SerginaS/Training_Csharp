@@ -8,10 +8,6 @@ namespace WebAddressbookTests
 {
     class NewContactData
     {
-        //private string firstname, middlename = "", lastname = "", nickname = "", title = "",
-        //company = "", address = "", home = "", mobile = "", work = "", fax = "", email = "",
-        //email2 = "", email3 = "", homepage = "", bmonth = "", amonth = "", address2 = "",
-        //phone2 = "", notes = ""
         public string firstname { get; set; }
         public string middlename { get; set; } = "";
         public string lastname { get; set; } = "";
@@ -27,8 +23,8 @@ namespace WebAddressbookTests
         public string email2 { get; set; } = "";
         public string email3 { get; set; } = "";
         public string homepage { get; set; } = "";
-        public string bmonth { get; set; } = "";
-        public string amonth { get; set; } = "";
+        public string bmonth { get; set; } = "-";
+        public string amonth { get; set; } = "-";
         public string address2 { get; set; } = "";
         public string phone2 { get; set; } = "";
         public string notes { get; set; } = "";
