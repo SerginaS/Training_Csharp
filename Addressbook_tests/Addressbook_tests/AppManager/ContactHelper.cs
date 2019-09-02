@@ -3,54 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
+
 namespace WebAddressbookTests
 {
-    public class TestBase
+    public class ContactHelper : HelperBase
     {
-        protected IWebDriver driver;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
-
-        protected LoginHelper loginHelper;
-        protected NavigationHelper navigationHelper;
-        protected GroupHelper groupHelper;
-
-        [SetUp]
-        public void SetupTest()
+        public ContactHelper(IWebDriver driver) : base(driver)
         {
-            driver = new FirefoxDriver();
-            baseURL = "http://localhost";
-            verificationErrors = new StringBuilder();
-
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
         }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }   
-        
-        protected void AddContacts()
+        public void AddContacts()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }
-        protected void NewContactCreation(NewContactData contact)
+        public void NewContactCreation(NewContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -125,11 +94,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys(contact.notes);
         }
-        protected void SubmitNewContactCreation()
+        public void SubmitNewContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
         }
-        protected void ReturnToHomePage()
+        public void ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home")).Click();
         }
