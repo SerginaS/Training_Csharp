@@ -21,6 +21,9 @@ namespace WebAddressbookTests
 
         public ApplicationManager()
         {
+            driver = new FirefoxDriver();
+            baseURL = "http://localhost";
+
             loginHelper = new LoginHelper(driver);
             navigationHelper = new NavigationHelper(driver, baseURL);
             groupHelper = new GroupHelper(driver);
@@ -44,6 +47,5 @@ namespace WebAddressbookTests
         public GroupHelper Groups { get; }
         public LoginHelper Auth { get; }
         public NavigationHelper Navigation { get; }
-
     }
 }
