@@ -10,10 +10,10 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddNewContact : TestBase
+    public class ContactCreationTests : TestBase
     {
         [Test]
-        public void AddNewContactTest()
+        public void ContactCreationTest()
         {
             NewContactData contact = new NewContactData("test");
             contact.middlename = "test1";
