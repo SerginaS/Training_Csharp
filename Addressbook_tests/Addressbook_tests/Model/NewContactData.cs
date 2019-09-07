@@ -28,7 +28,7 @@ namespace WebAddressbookTests
         public string address2 { get; set; } = "";
         public string phone2 { get; set; } = "";
         public string notes { get; set; } = "";
-        public string bday { get; set; } = "-";
+        public string bday { get; set; }
         public string byear { get; set; } = "";
         public string aday { get; set; } = "-";
         public string ayear { get; set; } = "";
