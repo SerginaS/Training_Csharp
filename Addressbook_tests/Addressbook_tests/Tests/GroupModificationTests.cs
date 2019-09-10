@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void GroupModificationTest()
@@ -16,7 +16,7 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("Test11111");
             newData.Header = null;
             newData.Footer = null;
-
+           
             app.Groups.Modify(1, newData);
         }
     }

@@ -26,9 +26,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(int v, NewContactData newContact)
+        public ContactHelper Modify(NewContactData newContact)
         {
-            SelectContact(v);
+            if(IsElementPresent(By.Name("entry")) == false)
+            {
+                NewContactData contact = new NewContactData("test");
+                Create(contact);
+            }
+            SelectContact();
             EditContacts();
             FillContactForm(newContact);
             SubmitContactModification();
@@ -37,9 +42,14 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper Remove(int v)
+        public ContactHelper Remove()
         {
-            SelectContact(v);
+            if (IsElementPresent(By.Name("entry")) == false)
+            {
+                NewContactData contact = new NewContactData("test");
+                Create(contact);
+            }
+            SelectContact();
             RemoveContact();
             AssertRemovalContacts();                
             return this;
@@ -98,9 +108,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home")).Click();
             return this;
         }
-        public ContactHelper SelectContact(int v)
+        public ContactHelper SelectContact()
         {
-            driver.FindElement(By.XPath("//tr["+ v +"]/td/input")).Click();
+            //driver.FindElement(By.XPath("//tr["+ v +"]/td/input")).Click();
+            driver.FindElement(By.Name("selected[]")).Click();
             return this;
         }
         public ContactHelper RemoveContact()

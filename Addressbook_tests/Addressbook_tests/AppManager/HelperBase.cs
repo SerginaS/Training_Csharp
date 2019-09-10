@@ -35,5 +35,17 @@ namespace WebAddressbookTests
                 driver.FindElement(locatorXpath).Click();
             }
         }
+        public bool IsElementPresent(By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }
