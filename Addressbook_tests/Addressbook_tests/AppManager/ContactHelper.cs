@@ -26,13 +26,9 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         public ContactHelper Modify(NewContactData newContact)
         {
-            if(IsElementPresent(By.Name("entry")) == false)
-            {
-                NewContactData contact = new NewContactData("test");
-                Create(contact);
-            }
             SelectContact();
             EditContacts();
             FillContactForm(newContact);
@@ -44,11 +40,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove()
         {
-            if (IsElementPresent(By.Name("entry")) == false)
-            {
-                NewContactData contact = new NewContactData("test");
-                Create(contact);
-            }
             SelectContact();
             RemoveContact();
             AssertRemovalContacts();                
@@ -133,6 +124,21 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
+        }
+        public bool ContactIsPresent()
+        {
+            return IsElementPresent(By.Name("selected[]"))
+                && IsElementPresent(By.Id("maintable"));
+        }
+
+        // Проверка на наличие хотя бы одного контакта в списке контактов, если нет - создаем        
+        public void CheckContacts()
+        {
+            if (ContactIsPresent() == false)
+            {
+                NewContactData contact = new NewContactData("test");
+                Create(contact);
+            }
         }
     }
 }

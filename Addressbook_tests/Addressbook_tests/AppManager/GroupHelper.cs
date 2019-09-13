@@ -17,17 +17,10 @@ namespace WebAddressbookTests
         {
         }
 
+
         public GroupHelper Remove(int v)
         {
             manager.Navigation.OpenGroupPage();
-            if (IsElementPresent(By.Name("selected[]")) == false)
-            {
-                GroupData group = new GroupData("Test1");
-                group.Header = "Test2";
-                group.Footer = "Test3";
-
-                Create(group);
-            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -37,14 +30,6 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigation.OpenGroupPage();
-            if (IsElementPresent(By.Name("selected[]")) == false)
-            {
-                GroupData group = new GroupData("Test1");
-                group.Header = "Test2";
-                group.Footer = "Test3";
-
-                Create(group);
-            }
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -103,6 +88,24 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+
+        public bool GroupListIsPresent()
+        {
+            return IsElementPresent(By.Name("selected[]"))
+                && driver.FindElement(By.Id("content")).FindElement(By.TagName("h1")).Text
+                == "Groups";
+        }
+        
+        // Проверка на наличие хотя бы одной группы в списке групп        
+        public void CheckGroupList()
+        {
+            manager.Navigation.OpenGroupPage();
+            if (GroupListIsPresent() == false)
+            {
+                GroupData group = new GroupData("Test1");
+                Create(group);
+            }
         }
     }
 }

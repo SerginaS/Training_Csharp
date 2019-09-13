@@ -13,6 +13,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
+            //проверка на наличие хотя бы одного контакта в списке контактов, если нет - создаем
+            app.Contacts.CheckContacts();
+
             app.Contacts.Remove();
         }
 

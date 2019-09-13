@@ -14,9 +14,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            NewContactData newContact = new NewContactData("test1111");
+            NewContactData newContact = new NewContactData("test3333333");
             newContact.middlename = "test22222";
-            newContact.lastname = null;
+            newContact.lastname = "test22222";
             newContact.nickname = null;
             newContact.title = null;
             newContact.company = null;
@@ -38,6 +38,9 @@ namespace WebAddressbookTests
             newContact.address2 = null;
             newContact.phone2 = null;
             newContact.notes = null;
+
+            //проверка на наличие хотя бы одного контакта в списке контактов, если нет - создаем
+            app.Contacts.CheckContacts();
 
             app.Contacts.Modify(newContact);
         }
