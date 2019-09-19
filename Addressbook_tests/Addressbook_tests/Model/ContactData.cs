@@ -10,7 +10,7 @@ namespace WebAddressbookTests
     {
         public ContactData(string firstname)
         {
-            this.Firstname = firstname;
+            Firstname = firstname;
         }
         public bool Equals(ContactData other)
         {
@@ -74,20 +74,20 @@ namespace WebAddressbookTests
             string address2, string phone2, string notes)
             
         {
-            this.Firstname = firstname;
-            this.Middlename = middlename;
-            this.Lastname = lastname;
-            this.Nickname = nickname;
-            this.Title = title;
-            this.Company = company;
-            this.Address = address;
-            this.Home = home;
-            this.Homepage = homepage;
-            this.Bday = bday;
-            this.Bmonth = bmonth;
-            this.Byear = byear;
-            this.Company = company;
-            this.Address = address;
+            Firstname = firstname;
+            Middlename = middlename;
+            Lastname = lastname;
+            Nickname = nickname;
+            Title = title;
+            Company = company;
+            Address = address;
+            Home = home;
+            Homepage = homepage;
+            Bday = bday;
+            Bmonth = bmonth;
+            Byear = byear;
+            Company = company;
+            Address = address;
         }
     }
 }
