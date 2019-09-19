@@ -19,6 +19,7 @@ namespace WebAddressbookTests
         public List<GroupData> GetGroupList()
         {
             List<GroupData> groups = new List<GroupData>();
+            manager.Navigation.OpenGroupPage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
             foreach (IWebElement element in elements)
             {
