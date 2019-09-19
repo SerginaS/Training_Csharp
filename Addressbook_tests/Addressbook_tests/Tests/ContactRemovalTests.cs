@@ -17,8 +17,11 @@ namespace WebAddressbookTests
             //проверка на наличие хотя бы одного контакта в списке контактов, если нет - создаем
             app.Contacts.CheckContacts();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+
             app.Contacts.Remove(0);
-            Thread.Sleep(5000);
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.RemoveAt(0);
 
