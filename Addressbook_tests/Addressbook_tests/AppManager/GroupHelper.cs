@@ -16,7 +16,16 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
-
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
 
         public GroupHelper Remove(int v)
         {
@@ -70,7 +79,7 @@ namespace WebAddressbookTests
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();            
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index + 1) + "]/input")).Click();            
             return this;
         }
         public GroupHelper RemoveGroup()
@@ -106,6 +115,6 @@ namespace WebAddressbookTests
                 GroupData group = new GroupData("Test1");
                 Create(group);
             }
-        }
+        }       
     }
 }

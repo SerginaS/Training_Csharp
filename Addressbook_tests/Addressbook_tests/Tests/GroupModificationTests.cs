@@ -20,7 +20,15 @@ namespace WebAddressbookTests
             //проверка на наличие хотя бы одной группы в списке групп, если нет - создаем
             app.Groups.CheckGroupList();
 
-            app.Groups.Modify(1, newData);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modify(0, newData);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

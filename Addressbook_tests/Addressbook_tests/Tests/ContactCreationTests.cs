@@ -2,10 +2,8 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
@@ -15,14 +13,23 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            NewContactData contact = new NewContactData("test");
-            contact.middlename = "test1";
-            contact.lastname = "test2";
-            contact.home = "test3";
-            contact.byear = "1524";
-            contact.ayear = "1999";
+            ContactData contact = new ContactData("Test123");
+            contact.Middlename = "test2";
+            contact.Lastname = "test3";
+            contact.Home = "test3";
+            contact.Byear = "1524";
+            contact.Ayear = "1999";
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         }                            
     }
 }

@@ -16,8 +16,24 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigation.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                var c2 = cells.ElementAt(1).Text;
+                var c3 = cells.ElementAt(2).Text;
+                var contact = new ContactData(c3);
+                contact.Lastname = c2;
+                contacts.Add(contact);
+            }
+            return contacts;
+        }
 
-        public ContactHelper Create(NewContactData contact)
+        public ContactHelper Create(ContactData contact)
         {
             AddContacts();
             FillContactForm(contact);
@@ -25,11 +41,10 @@ namespace WebAddressbookTests
             ReturnToHomePage();
             return this;
         }
-
-
-        public ContactHelper Modify(NewContactData newContact)
+       
+        public ContactHelper Modify(int p, ContactData newContact)
         {
-            SelectContact();
+            SelectContact(p);
             EditContacts();
             FillContactForm(newContact);
             SubmitContactModification();
@@ -38,11 +53,12 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper Remove()
+        public ContactHelper Remove(int p)
         {
-            SelectContact();
+            SelectContact(p);
             RemoveContact();
-            AssertRemovalContacts();                
+            AssertRemovalContacts();
+            ReturnToHomePage();
             return this;
         }
 
@@ -51,40 +67,40 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
-        public ContactHelper FillContactForm(NewContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {
-            Type(By.Name("firstname"), contact.firstname);
-            Type(By.Name("middlename"), contact.middlename);
-            Type(By.Name("lastname"), contact.lastname);
-            Type(By.Name("nickname"), contact.nickname);
-            Type(By.Name("title"), contact.title);
-            Type(By.Name("company"), contact.company);
-            Type(By.Name("address"), contact.company);
-            Type(By.Name("home"), contact.home);
-            Type(By.Name("mobile"), contact.mobile);
-            Type(By.Name("work"), contact.work);
-            Type(By.Name("fax"), contact.fax);
-            Type(By.Name("email"), contact.email);
-            Type(By.Name("email2"), contact.email2);
-            Type(By.Name("email3"), contact.email3);
-            Type(By.Name("homepage"), contact.homepage);
-            SelectElementType(By.Name("bday"), contact.bday, By.XPath("//div[@id='content']/form/select/option[6]"));
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("nickname"), contact.Nickname);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
+            Type(By.Name("address"), contact.Company);
+            Type(By.Name("home"), contact.Home);
+            Type(By.Name("mobile"), contact.Mobile);
+            Type(By.Name("work"), contact.Work);
+            Type(By.Name("fax"), contact.Fax);
+            Type(By.Name("email"), contact.Email);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.Homepage);
+            SelectElementType(By.Name("bday"), contact.Bday, By.XPath("//div[@id='content']/form/select/option[6]"));
             //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.bday);
             //driver.FindElement(By.XPath("//div[@id='content']/form/select/option[3]")).Click();
-            SelectElementType(By.Name("bmonth"), contact.bmonth, By.XPath("//div[@id='content']/form/select[2]/option[5]"));
+            SelectElementType(By.Name("bmonth"), contact.Bmonth, By.XPath("//div[@id='content']/form/select[2]/option[5]"));
             //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.bmonth);
             //driver.FindElement(By.XPath("//div[@id='content']/form/select[2]/option[5]")).Click();
-            Type(By.Name("byear"), contact.byear);
-            SelectElementType(By.Name("aday"), contact.aday, By.XPath("//div[@id='content']/form/select[3]/option[7]"));
+            Type(By.Name("byear"), contact.Byear);
+            SelectElementType(By.Name("aday"), contact.Aday, By.XPath("//div[@id='content']/form/select[3]/option[7]"));
             //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.aday);
             //driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[7]")).Click();
-            SelectElementType(By.Name("amonth"), contact.amonth, By.XPath("//div[@id='content']/form/select[4]/option[4]"));
+            SelectElementType(By.Name("amonth"), contact.Amonth, By.XPath("//div[@id='content']/form/select[4]/option[4]"));
             //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.amonth);
             //driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[4]")).Click();
-            Type(By.Name("ayear"), contact.ayear);
-            Type(By.Name("address2"), contact.address2);
-            Type(By.Name("phone2"), contact.phone2);
-            Type(By.Name("notes"), contact.notes);
+            Type(By.Name("ayear"), contact.Ayear);
+            Type(By.Name("address2"), contact.Address2);
+            Type(By.Name("phone2"), contact.Phone2);
+            Type(By.Name("notes"), contact.Notes);
             return this;
         }
 
@@ -99,10 +115,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home")).Click();
             return this;
         }
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-            //driver.FindElement(By.XPath("//tr["+ v +"]/td/input")).Click();
-            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.CssSelector("#maintable tr[name='entry'] > td:nth-child("+ (index + 1) +")")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -136,7 +151,7 @@ namespace WebAddressbookTests
         {
             if (ContactIsPresent() == false)
             {
-                NewContactData contact = new NewContactData("test");
+                ContactData contact = new ContactData("test");
                 Create(contact);
             }
         }
