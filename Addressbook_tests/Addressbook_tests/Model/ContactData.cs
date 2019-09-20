@@ -40,7 +40,11 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return ToString().CompareTo(other.ToString());
+            if(Lastname.CompareTo(other.Lastname) == 0)
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+            return Lastname.CompareTo(other.Lastname);
         }
         public string Firstname { get; set; } = "";
         public string Middlename { get; set; } = "";
@@ -66,6 +70,7 @@ namespace WebAddressbookTests
         public string Byear { get; set; } = "";
         public string Aday { get; set; } = "-";
         public string Ayear { get; set; } = "";
+        public string Id { get; set; }
 
         public ContactData(string firstname, string middlename, string lastname, 
             string nickname, string title, string company, string address, string home,

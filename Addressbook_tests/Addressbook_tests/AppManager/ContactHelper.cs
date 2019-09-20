@@ -33,6 +33,7 @@ namespace WebAddressbookTests
                     var c3 = cells.ElementAt(2).Text;
                     var contact = new ContactData(c3);
                     contact.Lastname = c2;
+                    contact.Id = element.FindElement(By.TagName("input")).GetAttribute("value");
                     contactCache.Add(contact);
                 }
             }            
