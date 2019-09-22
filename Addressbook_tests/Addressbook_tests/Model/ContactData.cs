@@ -8,6 +8,8 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        private string allPhones;
+
         public ContactData(string firstname)
         {
             Firstname = firstname;
@@ -53,9 +55,9 @@ namespace WebAddressbookTests
         public string Title { get; set; } = "";
         public string Company { get; set; } = "";
         public string Address { get; set; } = "";
-        public string Home { get; set; } = "";
-        public string Mobile { get; set; } = "";
-        public string Work { get; set; } = "";
+        public string HomePhone { get; set; } = "";
+        public string MobilePhone { get; set; } = "";
+        public string WorkPhone { get; set; } = "";
         public string Fax { get; set; } = "";
         public string Email { get; set; } = "";
         public string Email2 { get; set; } = "";
@@ -71,10 +73,37 @@ namespace WebAddressbookTests
         public string Aday { get; set; } = "-";
         public string Ayear { get; set; } = "";
         public string Id { get; set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+               allPhones = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+        }
 
         public ContactData(string firstname, string middlename, string lastname, 
-            string nickname, string title, string company, string address, string home,
-            string mobile, string work, string fax, string email1, string email2, string email3,
+            string nickname, string title, string company, string address, string homephone,
+            string mobilephone, string workphone, string fax, string email1, string email2, string email3,
             string homepage, string bday, string bmonth, string byear, string aday, string amonth, string ayear,
             string address2, string phone2, string notes)
             
@@ -86,13 +115,14 @@ namespace WebAddressbookTests
             Title = title;
             Company = company;
             Address = address;
-            Home = home;
+            HomePhone = homephone;
+            MobilePhone = mobilephone;
+            WorkPhone = workphone;
             Homepage = homepage;
             Bday = bday;
             Bmonth = bmonth;
             Byear = byear;
             Company = company;
-            Address = address;
         }
     }
 }

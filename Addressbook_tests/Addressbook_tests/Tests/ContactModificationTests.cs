@@ -21,9 +21,9 @@ namespace WebAddressbookTests
             newContact.Title = null;
             newContact.Company = null;
             newContact.Address = null;
-            newContact.Home = null;
-            newContact.Mobile = null;
-            newContact.Work = null;
+            newContact.HomePhone = null;
+            newContact.MobilePhone = null;
+            newContact.WorkPhone = null;
             newContact.Fax = null;
             newContact.Email = null;
             newContact.Email2 = null;
