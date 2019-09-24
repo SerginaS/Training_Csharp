@@ -19,6 +19,9 @@ namespace WebAddressbookTests
             contact.WorkPhone = "1524-12345";
             contact.HomePhone = "321-321";
             contact.MobilePhone = "5555-5555";
+            contact.Email = "email@email.ru";
+            contact.Email2 = "email2@email.ru";
+            contact.Email3 = "email3@email.ru";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
