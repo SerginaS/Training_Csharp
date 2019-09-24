@@ -13,9 +13,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("firstname");
-            contact.Lastname = "Lastname";
-            contact.Address = "testAddress";
+            ContactData contact = new ContactData("test321");
+            contact.Lastname = "test123";
+            contact.Address = "address";
             contact.WorkPhone = "1524-12345";
             contact.HomePhone = "321-321";
             contact.MobilePhone = "5555-5555";

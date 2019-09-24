@@ -33,6 +33,15 @@ namespace WebAddressbookTests
             };
         }
 
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigation.OpenHomePage();
+            ContactDetails(0);
+            string allContactInformation = 
+
+        }
+
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigation.OpenHomePage();
@@ -62,7 +71,7 @@ namespace WebAddressbookTests
             {
                 contactCache = new List<ContactData>();
                 List<ContactData> contacts = new List<ContactData>();
-                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']")); //TODO переделать логатор By.Name
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']")); //TODO переделать локатор By.Name
                 foreach (IWebElement element in elements)
                 {
                     IList<IWebElement> cells = element.FindElements(By.TagName("td"));
@@ -132,20 +141,12 @@ namespace WebAddressbookTests
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
             Type(By.Name("email3"), contact.Email3);
-            Type(By.Name("homepage"), contact.Homepage);
-            SelectElementType(By.Name("bday"), contact.Bday, By.XPath("//div[@id='content']/form/select/option[6]"));
-            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.bday);
-            //driver.FindElement(By.XPath("//div[@id='content']/form/select/option[3]")).Click();
-            SelectElementType(By.Name("bmonth"), contact.Bmonth, By.XPath("//div[@id='content']/form/select[2]/option[5]"));
-            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.bmonth);
-            //driver.FindElement(By.XPath("//div[@id='content']/form/select[2]/option[5]")).Click();
-            Type(By.Name("byear"), contact.Byear);
-            SelectElementType(By.Name("aday"), contact.Aday, By.XPath("//div[@id='content']/form/select[3]/option[7]"));
-            //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.aday);
-            //driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[7]")).Click();
-            SelectElementType(By.Name("amonth"), contact.Amonth, By.XPath("//div[@id='content']/form/select[4]/option[4]"));
-            //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.amonth);
-            //driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[4]")).Click();
+            //Type(By.Name("homepage"), contact.Homepage);
+            //SelectElementType(By.Name("bday"), contact.Bday, By.XPath("//div[@id='content']/form/select/option[6]"));
+            //SelectElementType(By.Name("bmonth"), contact.Bmonth, By.XPath("//div[@id='content']/form/select[2]/option[5]"));
+            //Type(By.Name("byear"), contact.Byear);
+            //SelectElementType(By.Name("aday"), contact.Aday, By.XPath("//div[@id='content']/form/select[3]/option[7]"));
+            //SelectElementType(By.Name("amonth"), contact.Amonth, By.XPath("//div[@id='content']/form/select[4]/option[4]"));
             Type(By.Name("ayear"), contact.Ayear);
             Type(By.Name("address2"), contact.Address2);
             Type(By.Name("phone2"), contact.Phone2);
@@ -188,9 +189,15 @@ namespace WebAddressbookTests
                 .FindElement(By.TagName("a")).Click();
 
             return this;
-
-            //driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();;
         }
+
+        public void ContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
