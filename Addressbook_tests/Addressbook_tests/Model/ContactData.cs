@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
@@ -121,7 +117,10 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Firstname + Lastname + Address + AllEmail + AllPhones).Trim();
+                    return (Firstname + " " + NextLine(Lastname) + NextLine(Address) + "\r\n"
+                        +  NextLine(HomePhone).Insert(0, "H: ") + NextLine(MobilePhone).Insert (0, "M: ") 
+                        + NextLine(WorkPhone).Insert(0, "W: ") + "\r\n" + NextLine(Email) 
+                        + NextLine(Email2) + NextLine(Email3)).Trim();
                 }
             }
             set
@@ -129,7 +128,6 @@ namespace WebAddressbookTests
                 detailsInformation = value;
             }
         }
-        
 
         private string CleanUp(string phone)
         {
@@ -140,13 +138,13 @@ namespace WebAddressbookTests
             return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
-        private string NextLine(string email)
+        private string NextLine(string item)
         {
-            if (email == null || email == "")
+            if (item == null || item == "")
             {
                 return "";
             }
-            return email + "\r\n";
+            return item + "\r\n";
         }
 
 
