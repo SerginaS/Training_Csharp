@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -25,8 +28,30 @@ namespace WebAddressbookTests
             return groups;
         }
 
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts =  l.Split(',');
+                groups.Add(new GroupData(parts[0])
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+            return groups;
+        }
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List<GroupData>) 
+                new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader("groups.xml"));
+
+        }
+
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
 
