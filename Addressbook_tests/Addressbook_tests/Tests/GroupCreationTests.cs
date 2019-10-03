@@ -62,7 +62,7 @@ namespace WebAddressbookTests
             List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application();
             app.Visible = true;
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), "@groups.xlsx"));
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
 
             Excel.Worksheet sheet = wb.Sheets[1];
             Excel.Range range = sheet.UsedRange;
@@ -81,7 +81,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
 
