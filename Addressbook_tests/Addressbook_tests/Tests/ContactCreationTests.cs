@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Newtonsoft.Json;
@@ -59,6 +60,19 @@ namespace WebAddressbookTests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
 
-        }                            
+        }
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> fromUi = app.Contacts.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<ContactData> fromDb = ContactData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+        }
     }
 }

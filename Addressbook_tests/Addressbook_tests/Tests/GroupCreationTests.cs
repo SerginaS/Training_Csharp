@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
+using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -36,7 +37,7 @@ namespace WebAddressbookTests
             string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string l in lines)
             {
-                string[] parts =  l.Split(',');
+                string[] parts = l.Split(',');
                 groups.Add(new GroupData(parts[0])
                 {
                     Header = parts[1],
@@ -48,7 +49,7 @@ namespace WebAddressbookTests
         }
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-            return (List<GroupData>) 
+            return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader("groups.xml"));
 
         }
@@ -117,6 +118,20 @@ namespace WebAddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end  = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }
