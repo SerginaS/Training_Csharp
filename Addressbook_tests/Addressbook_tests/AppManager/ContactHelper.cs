@@ -36,6 +36,7 @@ namespace WebAddressbookTests
             };
         }
 
+       
         public ContactData GetContactInformationFromDetails(int index)
         {
             manager.Navigation.OpenHomePage();
@@ -121,12 +122,28 @@ namespace WebAddressbookTests
             SubmitContactModification();
             ReturnToHomePage();
             return this;
-
+        }
+        public ContactHelper Modify(ContactData contact, ContactData newContact)
+        {
+            SelectContact(contact.Id);
+            EditContacts(0);
+            FillContactForm(newContact);
+            SubmitContactModification();
+            ReturnToHomePage();
+            return this;
         }
 
         public ContactHelper Remove(int p)
         {
             SelectContact(p);
+            RemoveContact();
+            AssertRemovalContacts();
+            ReturnToHomePage();
+            return this;
+        }
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.Id);
             RemoveContact();
             AssertRemovalContacts();
             ReturnToHomePage();
@@ -184,6 +201,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.CssSelector("#maintable tr[name='entry'] > td:nth-child("+ (index + 1) +")")).Click();
             return this;
         }
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
+            return this;
+        }
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -197,9 +219,20 @@ namespace WebAddressbookTests
         }
         public ContactHelper EditContacts(int index)
         {
-            driver.FindElements(By.Name("entry"))[index]
+            IWebElement a = driver.FindElements(By.Name("entry"))[index];
+            IWebElement a1 = a.FindElements(By.TagName("td"))[7];
+            a1.FindElement(By.TagName("a")).Click();
+
+            return this;
+        }
+        public ContactHelper EditContacts(String id)
+        {
+            System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> coll = driver.FindElements(By.XPath("//input[@name='selected[]' and @value='" + id + "']"));
+            if (coll.Count() > 0) {
+                coll[0]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
+            }
 
             return this;
         }
