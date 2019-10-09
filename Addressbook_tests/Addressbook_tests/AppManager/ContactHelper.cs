@@ -126,7 +126,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(ContactData contact, ContactData newContact)
         {
             SelectContact(contact.Id);
-            EditContacts(0);
+            EditContacts(contact.Id);
             FillContactForm(newContact);
             SubmitContactModification();
             ReturnToHomePage();
@@ -219,20 +219,13 @@ namespace WebAddressbookTests
         }
         public ContactHelper EditContacts(int index)
         {
-            IWebElement a = driver.FindElements(By.Name("entry"))[index];
-            IWebElement a1 = a.FindElements(By.TagName("td"))[7];
-            a1.FindElement(By.TagName("a")).Click();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
 
             return this;
         }
         public ContactHelper EditContacts(String id)
         {
-            System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> coll = driver.FindElements(By.XPath("//input[@name='selected[]' and @value='" + id + "']"));
-            if (coll.Count() > 0) {
-                coll[0]
-                .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();
-            }
+            driver.FindElement(By.XPath("//td[@class='center']//a[@href='edit.php?id=" + id + "']")).Click();
 
             return this;
         }

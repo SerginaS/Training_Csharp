@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactsTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
