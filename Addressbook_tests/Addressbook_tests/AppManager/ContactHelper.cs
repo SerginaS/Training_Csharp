@@ -36,7 +36,7 @@ namespace WebAddressbookTests
             };
         }
 
-       
+
         public ContactData GetContactInformationFromDetails(int index)
         {
             manager.Navigation.OpenHomePage();
@@ -103,6 +103,33 @@ namespace WebAddressbookTests
         internal int GetContactCount()
         {
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
+        }
+
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.OpenHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
 
         public ContactHelper Create(ContactData contact)
