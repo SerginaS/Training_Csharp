@@ -35,7 +35,7 @@ namespace WebAddressbookTests
                 AllEmail = allEmail
             };
         }
-
+        
 
         public ContactData GetContactInformationFromDetails(int index)
         {
@@ -105,7 +105,15 @@ namespace WebAddressbookTests
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
         }
 
-
+        internal void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigation.OpenHomePage();
+            SelectGroupFromFilter(group.Name);
+            SelectContact(contact.Id);
+            RemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigation.OpenHomePage();
