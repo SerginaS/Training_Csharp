@@ -102,9 +102,9 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            foreach (ContactData contact in GroupData.GetAll()[10].GetContacts())
+            foreach (GroupData group in ContactData.GetAll()[0].GetGroups())
             {
-                System.Console.Out.WriteLine(contact.Deprecated);
+                System.Console.Out.WriteLine(group.Deprecated);
             }
 
         }

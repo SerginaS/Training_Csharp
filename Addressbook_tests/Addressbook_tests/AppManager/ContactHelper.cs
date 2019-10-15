@@ -298,6 +298,7 @@ namespace WebAddressbookTests
         // Проверка на наличие хотя бы одного контакта в списке контактов, если нет - создаем        
         public void CheckContacts()
         {
+            manager.Navigation.OpenHomePage();
             if (ContactIsPresent() == false)
             {
                 ContactData contact = new ContactData("test");

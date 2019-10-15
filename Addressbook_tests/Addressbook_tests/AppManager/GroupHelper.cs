@@ -36,8 +36,7 @@ namespace WebAddressbookTests
             }
             return new List<GroupData>(groupCache);
         }
-
-
+        
         public int GetGroupCount()
         {
             return driver.FindElements(By.CssSelector("span.group")).Count;

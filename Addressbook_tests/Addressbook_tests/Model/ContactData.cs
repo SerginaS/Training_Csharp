@@ -140,6 +140,16 @@ namespace WebAddressbookTests
                 return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00")  select c).ToList();
             }
         }
+
+        public List<GroupData> GetGroups()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from g in db.Groups
+                        from gcr in db.GCR.Where(p => p.GroupId == g.Id && p.ContactId == Id && g.Deprecated == "0000-00-00 00:00:00")
+                        select g).Distinct().ToList();
+            }
+        }
         public string AllPhones
         {
             get
