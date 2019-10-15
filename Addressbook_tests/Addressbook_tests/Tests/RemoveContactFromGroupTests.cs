@@ -12,6 +12,9 @@ namespace WebAddressbookTests
         [Test]
         public void RemoveContactFromGroupTest()
         {
+            app.Groups.CheckGroupList();
+            app.Contacts.CheckContacts();
+
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
             ContactData contact = oldList[0];
