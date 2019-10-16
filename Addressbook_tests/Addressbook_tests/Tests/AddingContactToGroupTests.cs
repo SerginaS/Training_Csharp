@@ -21,7 +21,7 @@ namespace WebAddressbookTests
 
             IEnumerable<ContactData> contact = ContactData.GetAll().Except(oldList);
             
-            //проверка наличия хотя бы одного контакта который не состоит в группе в которую нужно добавить контакт, если нет - создаем новый
+            //проверка наличия хотя бы одного контакта который не состоит в данной группе, если нет - создаем новый
             if (contact.Count() == 0)
             {
                 ContactData newContact = new ContactData("test");
