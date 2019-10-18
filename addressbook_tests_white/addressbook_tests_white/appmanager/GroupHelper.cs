@@ -10,6 +10,7 @@ using TestStack.White.UIItems.TreeItems;
 using TestStack.White.WindowsAPI;
 using TestStack.White.UIItems.Finders;
 using System.Windows.Automation;
+using NUnit.Framework;
 
 namespace addressbook_tests_white
 {
@@ -72,6 +73,25 @@ namespace addressbook_tests_white
             Window deleteGroup = dialogue.ModalWindow("Delete group");
             deleteGroup.Get<Button>("uxOKAddressButton").Click();
             CloseGroupsDialogue(dialogue);
+        }
+        public void CheckGroupList()
+        {
+            Window dialogue = OpenGroupsDialogue();
+
+            IUIItem textBox = dialogue.Get(SearchCriteria.ByControlType(ControlType.TreeItem));
+
+            Win32TreeNode node = (Win32TreeNode)textBox;
+            int count = node.Nodes.Count();
+            if (count <= 1)
+            {
+                CloseGroupsDialogue(dialogue);
+                GroupData newGroup = new GroupData("Test123");
+                Add(newGroup);
+            }
+            else
+            {
+                CloseGroupsDialogue(dialogue);
+            }
         }
     }
 }

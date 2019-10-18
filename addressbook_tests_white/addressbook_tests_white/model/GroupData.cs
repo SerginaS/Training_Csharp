@@ -10,6 +10,14 @@ namespace addressbook_tests_white
     {
         public string Name { get; set; }
 
+        public GroupData()
+        {
+        }
+
+        public GroupData(string name)
+        {
+            Name = name;
+        }
         public int CompareTo(GroupData other)
         {
             return this.Name.CompareTo(other.Name);

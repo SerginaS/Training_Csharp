@@ -10,6 +10,7 @@ namespace addressbook_tests_white
         [Test]
         public void RemoveGroupTest()
         {
+            app.Groups.CheckGroupList();
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Remove();
