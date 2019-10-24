@@ -16,16 +16,16 @@ namespace mantis_tests
 
         public void Remove(int v)
         {
-            OpenManageOverviewPage();
-            OpenManageProjectPage();
+            manager.MenuHelper.OpenManageOverviewPage();
+            manager.MenuHelper.OpenManageProjectPage();
             SelectProject(0);
             RemoveProject();
             AssertRemovalProject();
         }
         public void Create(ProjectData project)
         {
-            OpenManageOverviewPage();
-            OpenManageProjectPage();
+            manager.MenuHelper.OpenManageOverviewPage();
+            manager.MenuHelper.OpenManageProjectPage();
             InitNewProjectCreation();
             FillProjectForm(project);
             SubmitProjectCreation();
@@ -43,12 +43,9 @@ namespace mantis_tests
 
         public void SelectProject(int index)
         {
-            var cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
-            var cell1 = cell.FindElements(By.TagName("tr"))[index];
-            cell1.FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
-        }
-
-        
+            IWebElement cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
+            cell.FindElements(By.TagName("tr"))[index].FindElements(By.TagName("td"))[0].FindElement(By.TagName("a")).Click();
+        }       
 
         public void SubmitProjectCreation()
         {
@@ -59,16 +56,7 @@ namespace mantis_tests
         {
             driver.FindElement(By.XPath("//button[@type='submit' and contains(text(), 'Создать новый проект')]")).Click();
         }
-
-        public void OpenManageProjectPage()
-        {
-            driver.FindElements(By.CssSelector("ul.nav-tabs li"))[2].Click();
-        }
-
-        public void OpenManageOverviewPage()
-        {
-            driver.FindElement(By.XPath("//span[@class='menu-text' and contains(text(), ' Управление ')]")).Click();
-        }
+              
         public void FillProjectForm(ProjectData project)
         {
             driver.FindElement(By.Name("name")).SendKeys(project.Name);
@@ -77,9 +65,9 @@ namespace mantis_tests
 
         public void CheckProjects()
         {
-            OpenManageOverviewPage();
-            OpenManageProjectPage();
-            var cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
+            manager.MenuHelper.OpenManageOverviewPage();
+            manager.MenuHelper.OpenManageProjectPage();
+            IWebElement cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
             int count = cell.FindElements(By.TagName("tr")).Count();
             if (count == 0)
             {
