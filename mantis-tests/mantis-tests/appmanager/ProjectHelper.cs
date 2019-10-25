@@ -36,6 +36,14 @@ namespace mantis_tests
             driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
         }
 
+        internal int GetProjectCount()
+        {
+            manager.MenuHelper.OpenManageOverviewPage();
+            manager.MenuHelper.OpenManageProjectPage();
+            IWebElement cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
+            return cell.FindElements(By.TagName("tr")).Count();
+        }
+
         public void RemoveProject()
         {
             driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
@@ -77,6 +85,24 @@ namespace mantis_tests
                 };
                 Create(project);
             }
+        }
+        public List<ProjectData> GetProjectList()
+        {
+            List<ProjectData> projects = new List<ProjectData>();
+            manager.MenuHelper.OpenManageOverviewPage();
+            manager.MenuHelper.OpenManageProjectPage();
+
+            IWebElement cell = driver.FindElements(By.CssSelector("div.table-responsive"))[0].FindElement(By.TagName("tbody"));
+            ICollection<IWebElement> elements = cell.FindElements(By.TagName("tr"));
+
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                string name = cells.ElementAt(0).Text;
+                ProjectData project = new ProjectData(name);
+                projects.Add(project);
+            }
+            return projects;
         }
     }
 }
