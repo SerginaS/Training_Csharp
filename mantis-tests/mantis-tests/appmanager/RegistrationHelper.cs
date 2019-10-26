@@ -11,7 +11,6 @@ namespace mantis_tests
     {
         public RegistrationHelper(ApplicationManager manager) : base(manager)
         {
-
         }
 
         public void Register(AccountData account)
@@ -24,7 +23,7 @@ namespace mantis_tests
 
         private void OpenRegistrationForm()
         {
-            driver.FindElement(By.CssSelector("div.toolbar")).Click();
+            driver.FindElement(By.CssSelector("div.toolbar a")).Click();
         }
 
         private void SubmitRegistration()
