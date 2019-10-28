@@ -22,6 +22,29 @@ namespace mantis_tests
 
             return contacts;
         }
+
+        [Test, TestCaseSource("RandomProjectDataProvider")]
+
+        public void ProjectCreationTestAPI(ProjectData project)
+        {
+            AccountData account = new AccountData()
+            {
+                Username = "Administrator",
+                Password = "root"
+            };
+            List<ProjectData> oldProjects = app.API.GetProjectList(account);
+            app.API.CreateProject(account, project);
+
+            Assert.AreEqual(oldProjects.Count + 1, app.API.GetProjectList(account).Count());
+
+            List<ProjectData> newProjects = app.API.GetProjectList(account);
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
+        }
+
         [Test, TestCaseSource("RandomProjectDataProvider")]
 
         public void ProjectCreationTest(ProjectData project)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SimpleBrowser.WebDriver;
 using System.Text.RegularExpressions;
 
+
 namespace mantis_tests
 {
     public class AdminHelper : HelperBase
@@ -43,10 +44,15 @@ namespace mantis_tests
 
         public void DeleteAccount(AccountData account)
         {
+            
             IWebDriver driver = OpenAppAndLogin();
+            
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             driver.Url = baseUrl + "/manage_user_edit_page.php?user_id=" + account.Id;
-            driver.FindElement(By.XPath("//input[@value ='Удалить учётную запись']")).Click();
-            driver.FindElement(By.XPath("//input[@value ='Удалить учётную запись']")).Click();
+            //driver.FindElement(By.XPath("//input[@value ='Удалить учётную запись']")).Click();
+            driver.FindElement(By.XPath(@"/html/body/div[2]/div[2]/div[2]/div/div[1]/div[4]/div[2]/form[2]/fieldset/span/input")).Click();
+            driver.FindElement(By.CssSelector("input.btn")).Click();
+            //driver.FindElement(By.XPath("//input[@value ='Удалить учётную запись']")).Click();
         }
 
         private IWebDriver OpenAppAndLogin()

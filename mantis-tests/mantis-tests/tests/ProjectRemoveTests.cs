@@ -25,6 +25,32 @@ namespace mantis_tests
             newProjects.Sort();
 
             Assert.AreEqual(oldProjects, newProjects);
-        } 
+        }
+
+        [Test]
+        public void ProjectRemoveTestAPI()
+        {
+            AccountData account = new AccountData()
+            {
+                Username = "Administrator",
+                Password = "root"
+            };
+            app.API.CheckProjects(account);
+
+            List<ProjectData> oldProjects = app.API.GetProjectList(account);
+
+            ProjectData toBeRemoved = oldProjects[0];
+            string id = toBeRemoved.Id;
+            app.API.RemoveProject(account, id);
+
+            Assert.AreEqual(oldProjects.Count - 1, app.API.GetProjectList(account).Count());
+
+            List<ProjectData> newProjects = app.API.GetProjectList(account);
+            oldProjects.RemoveAt(0);
+            oldProjects.Sort();
+            newProjects.Sort();
+
+            Assert.AreEqual(oldProjects, newProjects);
+        }
     }
 }

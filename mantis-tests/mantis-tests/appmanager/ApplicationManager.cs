@@ -15,12 +15,13 @@ namespace mantis_tests
         protected IWebDriver driver;
         protected string baseURL;
 
-        public RegistrationHelper Registration { get; private set; }
-        public FtpHelper Ftp { get; private set; }
-        public ProjectHelper Project { get; private set; }
-        public LoginHelper LoginHelper { get; private set; }
-        public ManagementMenuHelper MenuHelper { get; private set; }
-        public AdminHelper Admin { get; private set; }
+        public RegistrationHelper Registration { get; set; }
+        public FtpHelper Ftp { get; set; }
+        public ProjectHelper Project { get; set; }
+        public LoginHelper LoginHelper { get; set; }
+        public ManagementMenuHelper MenuHelper { get; set; }
+        public AdminHelper Admin { get; set; }
+        public APIHelper API { get; set; }
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -34,7 +35,7 @@ namespace mantis_tests
             LoginHelper = new LoginHelper(this);
             MenuHelper = new ManagementMenuHelper(this, baseURL);
             Admin = new AdminHelper(this, baseURL);
-
+            API = new APIHelper(this);
         }
 
         ~ApplicationManager()
